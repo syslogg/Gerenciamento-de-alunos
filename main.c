@@ -37,11 +37,19 @@ bool CarregarArquivo (Arvore * arv) {
 		return false;
 	}
 	int matricula;
-	char nome[30], email[30], telefone[30];
+	char nome[300], email[300], telefone[300],buf[1024];
+	
 	//Percorre todo o arquivo
-	while ((fscanf(file,"%d | %s | %s | %s\n", &matricula, nome, &email, &telefone))!= EOF) {
-		printf("Nome: ",nome);
+	while (fgets(buf,sizeof(buf),file) != NULL){
+		//buf é string que contem a linha completa
+		
+		printf("Nome: %s",buf);
 	}
+	
+	
+	
+	
+	
 	
 	
 	
