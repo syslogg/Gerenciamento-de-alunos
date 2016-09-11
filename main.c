@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 #include "Arvore.h"
 
 #define bool int
@@ -17,7 +18,7 @@ int main(int argc, char *argv[]) {
 	int menu = 0;
 	bool carregado = false;
 	
-	while (menu != 11){
+	while (menu != 12){
 		switch(menu) {
 			case 0:
 				//Listagem do menu
@@ -34,7 +35,9 @@ int main(int argc, char *argv[]) {
 				printf("7 - Remover aluno pela matricula.\n");
 				printf("8 - Remover alunos contido no arquivo.\n");
 				printf("9 - Remover todos os alunos.\n");
-				printf("10 - Salvar alterações na lista no arquivo.\n");
+				printf("10 - Salvar alteracoes na lista no arquivo.\n\n");
+				printf("11 - Sair.\n\n");
+				printf("- Digite um dos numeros acima\n");
 				
 				
 				scanf("%d",&menu);
@@ -96,9 +99,23 @@ int main(int argc, char *argv[]) {
 				break;
 			case 11:
 				//Sair
+				clean();
+				printf("Voce realmente deseja sair?\nAlteracoes nao salva no DB serao descartadas\n");
+				printf("1 - SIM\n2 - NAO\n\n");
+				int d;
+				scanf("%d",&d);
+				
+				menu = d == 1 ? 12 : 0;
+				
 				break;
 		}
 	}
+	
+	clean();
+	printf("Desenvolvido inteiramente por Hendy Rodrigues F. Silva\n");
+	printf("GitHub: https://github.com/syslogg/Gerenciamento-de-alunos\n\n");
+	printf("Obrigado Prof. Murilo Ybanez por avaliar meu trabalho de ED2!\n\n");
+	pause();
 	
 	return 0;
 }
