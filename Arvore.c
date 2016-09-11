@@ -6,8 +6,14 @@
 #include <stdlib.h>
 #include "Arvore.h"
 
+#define MAX_CHARACTER 300
 
 struct no {
+	//Informação
+	char nome[MAX_CHARACTER];
+	char email[MAX_CHARACTER];
+	char telefone[MAX_CHARACTER];
+	
 	int key;
 	No * esq;
 	No * dir;
@@ -23,29 +29,39 @@ Arvore * criar () {
 
 }
 
-bool buscar(Arvore * arv, int key) {
+No * buscar_rec(No * raiz, int key) {
+	if(raiz != NULL) {
+		if(raiz-> key == key) return raiz;
+		
+		if(raiz->key > key) return buscar_rec(raiz->esq, key);
+		else return buscar_rec(raiz->dir, key);
+		//return raiz;
+	}
+	return raiz;
+}
+
+No * buscar(Arvore * arv, int key) {
 	return buscar_rec(arv->raiz,key);
 }
 
-bool buscar_rec(No * raiz, int key) {
-	if(raiz != NULL) {
-		if(raiz->key > key) return buscar_rec(raiz->esq, key);
-		if(raiz->key < key) return buscar_rec(raiz->dir, key);
-		return true;
-	}
-	return false;
-}
 
 
-void inserir(Arvore * arv, int key) {
-	inserir_rec(&arv->raiz,key);
 
-    /*if(arv->raiz == NULL) {
+void inserir(Arvore * arv, int key, char * nome, char * email, char * telefone) {
+	//inserir_rec(&arv->raiz,key, nome, email, telefone);
+
+    if(arv->raiz == NULL) {
         //Arvore vazia
         No * novo = (No *)malloc(sizeof(No));
         novo->esq = NULL;
         novo->dir = NULL;
         novo->key = key;
+        
+        strcpy(novo->nome,nome);
+		strcpy(novo->email,email);
+		strcpy(novo->telefone,telefone);
+        
+        
         arv-> raiz = novo;
     } else {
         //Arvore não vazia
@@ -69,17 +85,20 @@ void inserir(Arvore * arv, int key) {
         novo->key = key;
         novo->esq = NULL;
         novo->dir = NULL;
+        strcpy(novo->nome,nome);
+		strcpy(novo->email,email);
+		strcpy(novo->telefone,telefone);
 
         if(ant->key < key) {
             ant->dir = novo;
         } else {
             ant->esq = novo;
         }
-    }*/
+    }
 
 }
 
-void inserir_rec(No * * praiz,int key) {
+void inserir_rec(No * * praiz,int key, char * nome, char * email, char * telefone) {
 	No * raiz = *praiz;
 	if(* praiz == NULL) {
 		//Inserir de fato no folha;
@@ -88,12 +107,17 @@ void inserir_rec(No * * praiz,int key) {
 		novo->esq = NULL;
 		novo->dir = NULL;
 		
+		//ADD Informacao na arvore
+		strcpy(novo->nome,nome);
+		strcpy(novo->email,email);
+		strcpy(novo->telefone,telefone);
+		
 		*praiz = novo;
 		
 	} else {
 		//Navegar até o nó folha
-		if(raiz->key > key) inserir_rec(&raiz->esq,key);
-		if(raiz->key < key) inserir_rec(&raiz->dir,key);
+		if(raiz->key > key) inserir_rec(&raiz->esq,key,nome, email, telefone);
+		if(raiz->key < key) inserir_rec(&raiz->dir,key,nome, email, telefone);
 	}
 	
 }
@@ -107,9 +131,19 @@ void imprimir(Arvore * arv) {
 void inordem(No * raiz) {
     if(raiz != NULL) {
         inordem(raiz->esq);
-        printf("%d ", raiz->key);
+        printf("%s ", raiz->nome);
         inordem(raiz->dir);
     }
+}
+
+char * getNome (No * no) {
+	return no->nome;
+}
+char * getEmail (No * no) {
+	return no->email;
+}
+char * getTelefone(No * no) {
+	return no->telefone;
 }
 
 

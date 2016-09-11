@@ -4,18 +4,20 @@
 
 typedef struct no No;
 typedef struct arvore Arvore;
-typedef struct aluno Aluno;
 
 //Instancia
 Arvore * criar();
 void destruir(Arvore * arv);
 
 //Inserir/Remover
-void inserir(Arvore * arv, int key);
+void inserir(Arvore * arv, int key, char * nome, char * email, char * telefone);
 void remover(Arvore * arv, int key);
 
 //Buscas
-bool buscar(Arvore * arv, int key);
+No * buscar(Arvore * arv, int key);
+char * getNome (No * no);
+char * getEmail (No * no);
+char * getTelefone(No * no);
 
 //Imprimir - In Ordem
 void imprimir(Arvore * arv);
