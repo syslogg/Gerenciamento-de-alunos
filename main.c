@@ -72,6 +72,28 @@ int main(int argc, char *argv[]) {
 				break;
 			case 2:
 				//Inserir novo aluno na memoria
+				clean();
+				char nome[200];
+				char email[200];
+				char telefone[200];
+				
+				printf("- Adicionar novo aluno:\n\n");
+				
+				printf("Nome: ");
+				scanf("%s",nome);
+				fflush(stdin);
+				
+				printf("\nE-mail: ");
+				scanf("%s",email);
+				fflush(stdin);
+				
+				printf("\nTelefone: ");
+				scanf("%s",telefone);
+				fflush(stdin);
+				
+				printf("\n\n%d matriculados",contar_nos(a));
+				
+				pause();
 				break;
 			case 3:
 				//Listar todos os alunos (Ordem de matricula)

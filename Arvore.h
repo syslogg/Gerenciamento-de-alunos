@@ -19,5 +19,8 @@ char * getNome (No * no);
 char * getEmail (No * no);
 char * getTelefone(No * no);
 
+//Utilidades
+int contar_nos(Arvore * arv);
+
 //Imprimir - In Ordem
 void imprimir(Arvore * arv);

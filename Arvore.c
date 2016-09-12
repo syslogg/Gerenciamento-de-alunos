@@ -146,4 +146,16 @@ char * getTelefone(No * no) {
 	return no->telefone;
 }
 
+int contar_nos(Arvore * arv) {
+	return contar_nos_rec (arv->raiz);
+}
+
+int contar_nos_rec (No * raiz) {
+	if(raiz == NULL) {
+		return 0;
+	} else {
+		return 1 + contar_nos_rec(raiz->esq) + contar_nos_rec(raiz->dir);
+	}
+}
+
 
