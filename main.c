@@ -7,10 +7,18 @@
 #define bool int
 #define true 1
 #define false 0
+#define MAX_CHARACTER 300
 
 
 char filename[]  = "db/BDAlunos10e2v1.txt"; //File test
 char pesquisa[] = "db/PesqAlunos10e1.txt"; //Arquivo de pesquisa
+
+struct aluno {
+	char nome[MAX_CHARACTER];
+	char email[MAX_CHARACTER];
+	char telefone[MAX_CHARACTER];
+};
+typedef struct aluno Aluno;
 
 int main(int argc, char *argv[]) {
 	//Criação da arvore
@@ -79,22 +87,24 @@ int main(int argc, char *argv[]) {
 				char nome[200];
 				char email[200];
 				char telefone[200];
-				
+				Aluno * aluno = (Aluno *) malloc(sizeof(Aluno));
 				printf("- Adicionar novo aluno:\n\n");
 				
 				printf("Nome: ");
-				scanf("%s",nome);
+				scanf("%s",aluno->nome);
 				fflush(stdin);
 				
 				printf("\nE-mail: ");
-				scanf("%s",email);
+				scanf("%s",aluno->email);
 				fflush(stdin);
 				
 				printf("\nTelefone: ");
-				scanf("%s",telefone);
+				scanf("%s",aluno->telefone);
 				fflush(stdin);
 				
-				inserir(a,contar_nos(a)+1,nome,email,telefone);
+				
+				
+				inserir(a,contar_nos(a)+1,aluno);
 				pause();
 				
 				menu = 0;
@@ -208,9 +218,13 @@ bool CarregarArquivo (Arvore * arv) {
 		//Retira cada espaço da ultima linha
 		nome[(strlen(nome)-1)] = '\0';
 		email[(strlen(email)-1)] = '\0';
-		
+		printf("Matricula: %d\n",matricula);
 		//Insere na arvore
-		inserir(arv,matricula,nome,email,telefone);
+		Aluno * aluno = (Aluno *) malloc(sizeof(Aluno));
+		strcpy(aluno->nome,nome);
+		strcpy(aluno->email,email);
+		strcpy(aluno->telefone,telefone);
+		inserir(arv,matricula,aluno);
 		
 	}
 	clean();
