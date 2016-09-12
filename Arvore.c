@@ -136,6 +136,22 @@ void inordem(No * raiz) {
     }
 }
 
+void listar_todos(Arvore * arv) {
+	listar_todos_rec(arv->raiz);
+}
+
+void listar_todos_rec(No * raiz) {
+	if(raiz !=NULL) {
+		listar_todos_rec(raiz->esq);
+		printf("Matricula: %d\n", raiz->key);
+		printf("Nome: %s\n", raiz->nome);
+		printf("E-mail: %s\n", raiz->email);
+		printf("Telefone: %s\n", raiz->telefone);
+		printf("=====================================\n\n");
+		listar_todos_rec(raiz->dir);
+	}
+}
+
 int getMatricula (No * no) {
 	return no->key;
 }

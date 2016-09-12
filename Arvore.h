@@ -25,3 +25,4 @@ int contar_nos(Arvore * arv);
 
 //Imprimir - In Ordem
 void imprimir(Arvore * arv);
+void listar_todos(Arvore * arv);

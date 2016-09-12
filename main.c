@@ -9,7 +9,7 @@
 #define false 0
 
 
-char filename[]  = "db/BDAlunos10e4v1.txt"; //File test
+char filename[]  = "db/BDAlunos10e1v1.txt"; //File test
 
 int main(int argc, char *argv[]) {
 	//Criação da arvore
@@ -18,6 +18,7 @@ int main(int argc, char *argv[]) {
 	//Menu
 	int menu = 0;
 	bool carregado = false;
+	bool save = false;
 	
 	while (menu != 12){
 		switch(menu) {
@@ -96,9 +97,18 @@ int main(int argc, char *argv[]) {
 				pause();
 				
 				menu = 0;
+				save = true;
 				break;
 			case 3:
 				//Listar todos os alunos (Ordem de matricula)
+				clean();
+				if(contar_nos(a) != 0){
+					listar_todos(a);
+				} else {
+					printf("Nao ha alunos na memoria!\nCarregue o arquivo ou insira um novo aluno!");
+				}
+				pause();
+				menu = 0;
 				break;
 			case 4:
 				//Listar todos os alunos pela matricula do arquivo
