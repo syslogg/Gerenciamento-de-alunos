@@ -18,6 +18,7 @@ No * buscar(Arvore * arv, int key);
 char * getNome (No * no);
 char * getEmail (No * no);
 char * getTelefone(No * no);
+int getMatricula (No * no);
 
 //Utilidades
 int contar_nos(Arvore * arv);

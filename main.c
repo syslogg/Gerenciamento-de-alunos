@@ -91,9 +91,10 @@ int main(int argc, char *argv[]) {
 				scanf("%s",telefone);
 				fflush(stdin);
 				
-				printf("\n\n%d matriculados",contar_nos(a));
-				
+				inserir(a,contar_nos(a)+1,nome,email,telefone);
 				pause();
+				
+				menu = 0;
 				break;
 			case 3:
 				//Listar todos os alunos (Ordem de matricula)

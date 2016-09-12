@@ -136,6 +136,9 @@ void inordem(No * raiz) {
     }
 }
 
+char * getMatricula (No * no) {
+	return no->key;
+}
 char * getNome (No * no) {
 	return no->nome;
 }
