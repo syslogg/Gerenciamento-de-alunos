@@ -9,7 +9,8 @@
 #define false 0
 
 
-char filename[]  = "db/BDAlunos10e1v1.txt"; //File test
+char filename[]  = "db/BDAlunos10e2v1.txt"; //File test
+char pesquisa[] = "db/PesqAlunos10e1.txt"; //Arquivo de pesquisa
 
 int main(int argc, char *argv[]) {
 	//Criação da arvore
@@ -112,6 +113,36 @@ int main(int argc, char *argv[]) {
 				break;
 			case 4:
 				//Listar todos os alunos pela matricula do arquivo
+				clean();
+				FILE * arq = fopen(pesquisa,"r");
+				
+				if(arq == NULL){
+					printf("Erro ao carregar arquivo de pesquisa!");
+					
+					
+				} else {
+					
+					char linha[11];
+					int matricula;
+					
+					clock_t time = clock();
+					//
+					//fgets(linha,sizeof(linha),arq) != NULL
+					while((fscanf(arq,"%d\n", &matricula))!=EOF) {
+						//sscanf(linha,"%d",&matricula);
+						No * b = buscar(a,matricula);
+						printf("Matricula: %d\n",matricula);
+						printf("Nome: %s\n",getNome(b));
+						printf("E-mail: %s\n",getEmail(b));
+						printf("Telefone: %s\n",getTelefone(b));
+						printf("=============================================================\n");
+					}
+					
+					printf("\n\n\nTempo decorrido: %f\n\n",(clock() - time) / (double)CLOCKS_PER_SEC);
+					
+				}
+				menu = 0;
+				pause();
 				break;
 			case 5:
 				//Consultar aluno por matricula
@@ -183,8 +214,9 @@ bool CarregarArquivo (Arvore * arv) {
 		
 	}
 	clean();
-	printf("Tempo de carregamento: %f\n",(clock() - time) / (double)CLOCKS_PER_SEC);
+	printf("Tempo de carregamento: %f\n\n",(clock() - time) / (double)CLOCKS_PER_SEC);
 	pause();
+	clean();
 	
 	return true;
 }
