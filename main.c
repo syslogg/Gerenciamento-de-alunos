@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include <time.h>
 #include "Arvore.h"
 
 #define bool int
@@ -8,7 +9,7 @@
 #define false 0
 
 
-char filename[]  = "db/BDAlunos10e1v1.txt"; //File test
+char filename[]  = "db/BDAlunos10e4v1.txt"; //File test
 
 int main(int argc, char *argv[]) {
 	//Criação da arvore
@@ -145,7 +146,8 @@ int main(int argc, char *argv[]) {
 
 bool CarregarArquivo (Arvore * arv) {
 	//Carregar dados do Arquivo para arvore;
-	
+	clock_t time;
+	time = clock();
 	FILE * file = fopen(filename, "r");
 	
 	if(file == NULL) {
@@ -170,6 +172,9 @@ bool CarregarArquivo (Arvore * arv) {
 		inserir(arv,matricula,nome,email,telefone);
 		
 	}
+	clean();
+	printf("Tempo de carregamento: %f\n",(clock() - time) / (double)CLOCKS_PER_SEC);
+	pause();
 	
 	return true;
 }
