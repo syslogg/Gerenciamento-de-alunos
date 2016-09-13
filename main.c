@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <conio.h>
 #include <time.h>
 #include "Arvore.h"
@@ -10,7 +11,7 @@
 #define MAX_CHARACTER 300
 
 
-char filename[]  = "db/BDAlunos10e2v1.txt"; //File test
+char filename[]  = "db/BDAlunos10e1v1.txt"; //File test
 char pesquisa[] = "db/PesqAlunos10e1.txt"; //Arquivo de pesquisa
 
 struct aluno {
@@ -19,6 +20,9 @@ struct aluno {
 	char telefone[MAX_CHARACTER];
 };
 typedef struct aluno Aluno;
+
+void clean();
+void pause();
 
 int main(int argc, char *argv[]) {
 	//Criação da arvore
@@ -90,21 +94,22 @@ int main(int argc, char *argv[]) {
 				Aluno * aluno = (Aluno *) malloc(sizeof(Aluno));
 				printf("- Adicionar novo aluno:\n\n");
 				
+				fflush(stdin);
 				printf("Nome: ");
-				scanf("%s",aluno->nome);
+				scanf("%[^\n]s",aluno->nome);
 				fflush(stdin);
 				
 				printf("\nE-mail: ");
-				scanf("%s",aluno->email);
+				scanf("%[^\n]s",aluno->email);
 				fflush(stdin);
 				
 				printf("\nTelefone: ");
-				scanf("%s",aluno->telefone);
+				scanf("%[^\n]s",aluno->telefone);
 				fflush(stdin);
 				
 				
 				
-				inserir(a,contar_nos(a)+1,aluno);
+				inserir(a,maior_no(a)+1,aluno);
 				pause();
 				
 				menu = 0;
@@ -196,7 +201,35 @@ int main(int argc, char *argv[]) {
 				break;
 			case 6:
 				//Editar aluno por matricula
+				clean();
 				
+				printf("==================================== Gerenciamento de alunos ====================================\n");
+				printf("Digite matricula: ");
+				int matri;
+				scanf("%d", &matri);
+				clean();
+				Aluno * ba = buscar(a,matri);
+				if(ba != NULL) {
+					printf("==================================== Gerenciamento de alunos ====================================\n");
+					fflush(stdin);
+					printf("Novo nome:");
+					scanf("%[^\n]s",ba->nome);
+					fflush(stdin);
+					
+					printf("Novo e-mail:");
+					scanf("%[^\n]s",ba->email);
+					fflush(stdin);
+					
+					printf("Novo telefone:");
+					scanf("%[^\n]s",ba->telefone);
+					fflush(stdin);
+					
+				} else{
+					printf("Aluno de matricula %d nao existe!\n", matri);
+				}
+				
+				menu = 0;
+				pause();
 				break;
 			case 7:
 				//Remover aluno pela matricula

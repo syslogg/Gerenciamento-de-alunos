@@ -124,11 +124,7 @@ void inserir(Arvore * arv, int key, Aluno * aluno) {
 	
 }*/
 
-void imprimir(Arvore * arv) {
-    printf("[ ");
-    inordem(arv->raiz);
-    printf("]\n");
-}
+
 
 void inordem(No * raiz) {
     if(raiz != NULL) {
@@ -138,6 +134,11 @@ void inordem(No * raiz) {
     }
 }
 
+void imprimir(Arvore * arv) {
+    printf("[ ");
+    inordem(arv->raiz);
+    printf("]\n");
+}
 
 void listar_todos(Arvore * arv) {
 }
