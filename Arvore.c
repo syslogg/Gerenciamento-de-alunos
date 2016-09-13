@@ -143,7 +143,23 @@ void inordem(No * raiz) {
 void listar_todos(Arvore * arv) {
 }
 
+<<<<<<< HEAD
 
+=======
+void listar_todos_rec(No * raiz) {
+	if(raiz !=NULL) {
+		listar_todos_rec(raiz->esq);
+		
+		/*printf("Matricula: %d\n", raiz->key);
+		printf("Nome: %s\n", raiz->nome);
+		printf("E-mail: %s\n", raiz->email);
+		printf("Telefone: %s\n", raiz->telefone);
+		printf("=====================================\n\n");
+		*/
+		listar_todos_rec(raiz->dir);
+	}
+}
+>>>>>>> c893595429e2c7f6233e559c7acd9a983afcb427
 /*
 int getMatricula (No * no) {
 	return no->key;
@@ -169,11 +185,14 @@ int contar_nos_rec (No * raiz) {
 		return 1 + contar_nos_rec(raiz->esq) + contar_nos_rec(raiz->dir);
 	}
 }
+<<<<<<< HEAD
 
 int maior_no(Arvore * arv) {
 	while()
 }
 
+=======
+>>>>>>> c893595429e2c7f6233e559c7acd9a983afcb427
 /*
 int remover_maior (No * * praiz){
 	No * raiz = *praiz;
