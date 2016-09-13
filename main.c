@@ -173,9 +173,30 @@ int main(int argc, char *argv[]) {
 				break;
 			case 5:
 				//Consultar aluno por matricula
+				clean();
+				
+				printf("==================================== Gerenciamento de alunos ====================================\n");
+				printf("Digite matricula: ");
+				int matricula;
+				scanf("%d", &matricula);
+				clean();
+				Aluno * b = buscar(a,matricula);
+				if(b != NULL) {
+					printf("==================================== Gerenciamento de alunos ====================================\n");
+					printf("Matricula: %d\n",matricula);
+					printf("Nome: %s\n",b->nome);
+					printf("E-mail: %s\n",b->email);
+					printf("Telefone: %s\n",b->telefone);
+				} else{
+					printf("Aluno de matricula %d nao existe!\n", matricula);
+				}
+				
+				menu = 0;
+				pause();
 				break;
 			case 6:
 				//Editar aluno por matricula
+				
 				break;
 			case 7:
 				//Remover aluno pela matricula
@@ -258,5 +279,6 @@ void clean() {
 }
 
 void pause(){
+	printf("\n\n");
 	system("pause");
 }
