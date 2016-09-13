@@ -34,21 +34,20 @@ Aluno * buscar_rec(No * raiz, int key) {
 		
 		if(raiz->key > key) return buscar_rec(raiz->esq, key);
 		else return buscar_rec(raiz->dir, key);
-		//return raiz;
+		//return NULL;
 	}
-	return raiz->info;
+	return NULL;
 }
 
 Aluno * buscar(Arvore * arv, int key) {
-	//return buscar_rec(arv->raiz,key);
+	return buscar_rec(arv->raiz,key);
 	
-	No * raiz = arv->raiz;
-	No * ant = NULL;
+	/*No * raiz = arv->raiz;
 	
 	while(raiz != NULL && raiz->key != key) {
 		raiz = key < raiz->key ? raiz->esq : raiz->dir;
 	}
-	return raiz->info;
+	return raiz->info;*/
 }
 
 
@@ -144,6 +143,21 @@ void listar_todos(Arvore * arv) {
 }
 
 
+
+void listar_todos_rec(No * raiz) {
+	if(raiz !=NULL) {
+		listar_todos_rec(raiz->esq);
+		
+		/*printf("Matricula: %d\n", raiz->key);
+		printf("Nome: %s\n", raiz->nome);
+		printf("E-mail: %s\n", raiz->email);
+		printf("Telefone: %s\n", raiz->telefone);
+		printf("=====================================\n\n");
+		*/
+		listar_todos_rec(raiz->dir);
+	}
+}
+
 /*
 int getMatricula (No * no) {
 	return no->key;
@@ -169,9 +183,16 @@ int contar_nos_rec (No * raiz) {
 		return 1 + contar_nos_rec(raiz->esq) + contar_nos_rec(raiz->dir);
 	}
 }
-
 int maior_no(Arvore * arv) {
-	while()
+	return maior_no_rec(arv->raiz);
+}
+
+int maior_no_rec(No * raiz) {
+	if(raiz != NULL) {
+		if(raiz->dir == NULL) return raiz->key;
+		else return maior_no_rec(raiz->dir);
+	}
+	return 0;
 }
 
 /*

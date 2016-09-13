@@ -115,12 +115,21 @@ int main(int argc, char *argv[]) {
 				clean();
 				if(contar_nos(a) != 0){
 					//listar_todos(a);
+					int maior = maior_no(a);
+					int i;
 					
-					/*int i;
-					for(i = 0; i < sizeof(chaves); i++) {
-						Aluno * aluno = buscar(a,chaves[i]);
-						printf("Nome: %s\n", aluno->nome);
-					}*/
+					for(i = 1; i <= maior; i++) {
+						Aluno * v = buscar(a,i);
+						
+						if(v != NULL) {
+							printf("Matricula: %d\n",i);
+							printf("Nome: %s\n",v->nome);
+							printf("Email: %s\n",v->email);
+							printf("Telefone: %s\n",v->telefone);
+							printf("==========================================================================\n");
+							
+						}
+					}
 					
 				} else {
 					printf("Nao ha alunos na memoria!\nCarregue o arquivo ou insira um novo aluno!");
