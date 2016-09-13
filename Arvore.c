@@ -142,8 +142,14 @@ void inordem(No * raiz) {
 void listar_todos(Arvore * arv) {
 }
 
+<<<<<<< HEAD
 
 
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> dd726f44c3c0ffa2de9674aa8c2261bd907d217d
 void listar_todos_rec(No * raiz) {
 	if(raiz !=NULL) {
 		listar_todos_rec(raiz->esq);
@@ -157,7 +163,11 @@ void listar_todos_rec(No * raiz) {
 		listar_todos_rec(raiz->dir);
 	}
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> c893595429e2c7f6233e559c7acd9a983afcb427
+>>>>>>> dd726f44c3c0ffa2de9674aa8c2261bd907d217d
 /*
 int getMatricula (No * no) {
 	return no->key;
@@ -183,6 +193,11 @@ int contar_nos_rec (No * raiz) {
 		return 1 + contar_nos_rec(raiz->esq) + contar_nos_rec(raiz->dir);
 	}
 }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+>>>>>>> dd726f44c3c0ffa2de9674aa8c2261bd907d217d
 int maior_no(Arvore * arv) {
 	return maior_no_rec(arv->raiz);
 }
@@ -195,6 +210,11 @@ int maior_no_rec(No * raiz) {
 	return 0;
 }
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> c893595429e2c7f6233e559c7acd9a983afcb427
+>>>>>>> dd726f44c3c0ffa2de9674aa8c2261bd907d217d
 /*
 int remover_maior (No * * praiz){
 	No * raiz = *praiz;
