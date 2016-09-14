@@ -11,7 +11,7 @@
 #define MAX_CHARACTER 300
 
 
-char filename[]  = "db/BDAlunos10e2v1.txt"; //File test
+char filename[]  = "db/BDAlunos10e1v1.txt"; //File test
 char pesquisa[] = "db/PesqAlunos10e1.txt"; //Arquivo de pesquisa
 
 struct aluno {
@@ -32,6 +32,7 @@ int main(int argc, char *argv[]) {
 	int menu = 0;
 	bool carregado = false;
 	bool save = false;
+	bool exit = false;
 	
 	while (menu != 12){
 		switch(menu) {
@@ -173,6 +174,7 @@ int main(int argc, char *argv[]) {
 					printf("\n\n\nTempo decorrido: %f\n\n",(clock() - time) / (double)CLOCKS_PER_SEC);
 					
 				}
+				fclose(arq);
 				menu = 0;
 				pause();
 				break;
@@ -277,6 +279,7 @@ int main(int argc, char *argv[]) {
 					printf("\n\n\nTempo decorrido: %f\n\n",(clock() - times) / (double)CLOCKS_PER_SEC);
 					
 				}
+				fclose(arqs);
 				menu = 0;
 				pause();
 				
@@ -303,16 +306,61 @@ int main(int argc, char *argv[]) {
 				break;
 			case 10:
 				//Salvar arvore da memoria no arquivo
+				clean();
+				menu = exit == true  ? 12 : 0;
+				if(carregado == false) {
+					printf("Voce ira sobreescrever no banco uma arvore que nao foi carregada, todos os dados no arquivo irao ser sobreescritos.\nDeseja continuar com o procedimento?");
+					printf("\n\n1- SIM;\n0- NAO;\n");
+					int s;
+					scanf("%d",&s);
+					if(s == 0) break;
+					
+				}
+				
+				FILE * savefile = fopen(filename,"w");
+				
+				if(savefile != NULL) {
+					save = true;
+					//Pattern: matricula | Nome do aluno | email | telefone\n
+					//Percorre a arvore
+					
+					int maior = maior_no(a);
+					int i;
+					
+					for(i = 1; i <= maior; i++) {
+						Aluno * alunoaq = buscar(a,i);
+						if(alunoaq != NULL){
+							fprintf(savefile, "%.7ld | %s | %s | %s\n", (long)i,alunoaq->nome,alunoaq->email,alunoaq->telefone);
+						}
+					}
+					
+					fclose(savefile);
+					printf("Arquivo salvo com sucesso!\n\n");
+					
+				} else {
+					printf("ERROR: erro inesperado no arquivo!");
+				}
+				
+				
+				pause();
+				
+				
 				break;
 			case 11:
 				//Sair
 				clean();
-				printf("Voce realmente deseja sair?\nAlteracoes nao salva no DB serao descartadas\n");
-				printf("1 - SIM\n2 - NAO\n\n");
-				int d;
-				scanf("%d",&d);
+				if(save == false) {
 				
-				menu = d == 1 ? 12 : 0;
+					printf("Deseja salvar as alterações feita na arvore?\n");
+					printf("1 - SIM\n2 - NAO\n\n");
+					int d;
+					scanf("%d",&d);
+					
+					menu = d == 1 ? 10 : 0;
+					exit = true;
+					
+				}
+				menu = 12;
 				
 				break;
 		}
@@ -359,6 +407,7 @@ bool CarregarArquivo (Arvore * arv) {
 		inserir(arv,matricula,aluno);
 		
 	}
+	fclose(file);
 	clean();
 	printf("Tempo de carregamento: %f\n\n",(clock() - time) / (double)CLOCKS_PER_SEC);
 	pause();
