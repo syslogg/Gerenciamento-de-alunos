@@ -184,8 +184,6 @@ void remover(Arvore * arv, int key) {
 		} else {
 			atual = atual->esq;
 		}
-		
-		
 	}
 	
 }

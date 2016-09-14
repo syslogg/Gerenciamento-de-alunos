@@ -11,7 +11,7 @@
 #define MAX_CHARACTER 300
 
 
-char filename[]  = "db/BDAlunos10e1v1.txt"; //File test
+char filename[]  = "db/BDAlunos10e2v1.txt"; //File test
 char pesquisa[] = "db/PesqAlunos10e1.txt"; //Arquivo de pesquisa
 
 struct aluno {
@@ -253,6 +253,33 @@ int main(int argc, char *argv[]) {
 				break;
 			case 8:
 				//Remover todos os alunos do arquivo
+				
+				clean();
+				FILE * arqs = fopen(pesquisa,"r");
+				
+				if(arqs == NULL){
+					printf("Erro ao carregar arquivo de pesquisa!");
+					
+					
+				} else {
+					
+					char linha[11];
+					int matriculas;
+					
+					clock_t times = clock();
+					//
+					//fgets(linha,sizeof(linha),arq) != NULL
+					while((fscanf(arqs,"%d\n", &matriculas))!=EOF) {
+						//sscanf(linha,"%d",&matricula);
+						remover(a,matriculas);
+					}
+					printf("Alunos removido com sucesso!");
+					printf("\n\n\nTempo decorrido: %f\n\n",(clock() - times) / (double)CLOCKS_PER_SEC);
+					
+				}
+				menu = 0;
+				pause();
+				
 				break;
 			case 9:
 				//Remover todos os alunos
