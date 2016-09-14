@@ -283,6 +283,23 @@ int main(int argc, char *argv[]) {
 				break;
 			case 9:
 				//Remover todos os alunos
+				clean();
+				if(contar_nos(a) != 0){
+					//listar_todos(a);
+					int maior = maior_no(a);
+					int i;
+					
+					for(i = 1; i <= maior; i++) {
+						remover(a,i);
+						
+						
+					}
+					
+				} else {
+					printf("Nao ha alunos na memoria!\nCarregue o arquivo ou insira um novo aluno!");
+				}
+				pause();
+				menu = 0;
 				break;
 			case 10:
 				//Salvar arvore da memoria no arquivo
