@@ -233,6 +233,23 @@ int main(int argc, char *argv[]) {
 				break;
 			case 7:
 				//Remover aluno pela matricula
+				clean();
+				
+				printf("==================================== Gerenciamento de alunos ====================================\n");
+				printf("Digite matricula: ");
+				int matt;
+				scanf("%d", &matt);
+				clean();
+				Aluno * bba = buscar(a,matt);
+				if(bba != NULL) {
+					remover(a,matt);
+					printf("Aluno removido com sucesso!");
+				} else{
+					printf("Aluno de matricula %d nao existe!\n", matt);
+				}
+				
+				menu = 0;
+				pause();
 				break;
 			case 8:
 				//Remover todos os alunos do arquivo
