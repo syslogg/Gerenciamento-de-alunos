@@ -13,6 +13,8 @@ struct no {
 	
 	Aluno * info;
 	
+	int fb;
+	
 	int key;
 	No * esq;
 	No * dir;
@@ -44,9 +46,7 @@ Aluno * buscar(Arvore * arv, int key) {
 
 }
 
-
-
-
+/*
 void inserir(Arvore * arv, int key, Aluno * aluno) {
 
     if(arv->raiz == NULL) {
@@ -93,7 +93,7 @@ void inserir(Arvore * arv, int key, Aluno * aluno) {
 
 }
 
-
+*/
 
 void inordem(No * raiz) {
     if(raiz != NULL) {
@@ -187,6 +187,147 @@ void remover(Arvore * arv, int key) {
 	}
 	
 }
+
+//Insere AVL
+void inserir(Arvore * arv, int key, Aluno * aluno){
+	inserir_avl_rec(&(arv->raiz),key,aluno);
+}
+
+int inserir_avl_rec(No * * raiz, int key, Aluno * aluno) {
+	int res;
+	
+	if(*raiz == NULL) {
+		//Arvore vazia ou Nó folha
+		No * novo = (No *) malloc(sizeof(No));
+		novo->key = key;
+		novo->fb = 0;
+		novo->info = aluno;
+		novo->esq = NULL;
+		novo->dir = NULL;
+		*raiz = novo;
+		return true;
+	}
+	
+	No * atual = *raiz;
+	if(key < atual->key) {
+		
+		if((res=inserir_avl_rec(&(atual->esq),key,aluno)) == 1) {
+			if(fb_No(atual) >= 2){
+				if(key < (*raiz)->esq->key){
+					RotacaoLL(raiz);
+				} else {
+					RotacaoLR(raiz);
+				}
+			}
+		} 
+		
+	} else {
+		
+		if(key > atual->key) {
+			
+			if((res=inserir_avl_rec(&(atual->dir),key,aluno)) == 1) {
+				
+				if(fb_No(atual) >= 2){
+					
+					if((*raiz)->dir->key < key) {
+						RotacaoRR(raiz);
+					} else {
+						RotacaoRL(raiz);
+					}
+				}
+			}
+			
+		} else {
+			return 0;
+		}
+		
+		
+	}
+	atual->fb = maior(alt_No(atual->esq),alt_No(atual->dir)) +1;
+	return res;
+}
+/*
+	else {
+			if(key > atual->key) {
+				if((res=inserir_avl_rec(&(atual->dir),key,aluno)) == true) {
+					if(fb_No(atual) >= 2){
+						if((*raiz)->dir->key < key) {
+							RotacaoRR(raiz);
+						} else {
+							RotacaoRL(raiz);
+						}
+					}
+				}
+			} else {
+				return false;
+			}
+		}
+		atual->fb = maior(alt_No(atual->esq),alt_No(atual->dir)) +1;
+		return res;
+*/
+
+//Funções auxiliares
+int alt_No(No * raiz) {
+	if(raiz == NULL) return -1;
+	else return raiz->fb;
+}
+
+int fb_No(No * raiz) {
+	return labs(alt_No(raiz->esq) - alt_No(raiz->dir));
+}
+
+int maior (int x, int y) {
+	return x > y ? x : y;
+}
+
+//Rotações
+void RotacaoLL (No * * praiz) {
+	//printf("RotacaoRR\n");
+	No * no = (*praiz)->esq;
+	(*praiz)->esq = no->dir;
+	
+	no->dir = *praiz;
+	
+	(*praiz)->fb = maior(alt_No((*praiz)->esq),alt_No((*praiz)->dir)) + 1;
+	
+	no->fb = maior(alt_No(no->esq),(*praiz)->fb);
+	
+	(*praiz) = no;
+	
+}
+
+void RotacaoRR (No * * praiz) {
+	No * no = (*praiz)->dir;
+	
+	(*praiz)->dir = no->esq; //Buxo
+	no->esq = *praiz;
+	(*praiz)->fb = maior(alt_No((*praiz)->esq),alt_No((*praiz)->dir)) + 1;
+	
+	no->fb = maior(alt_No(no->dir),(*praiz)->fb);
+	
+	(*praiz) = no;
+	
+}
+
+void RotacaoLR(No ** praiz) {
+	RotacaoRR(&(*praiz)->esq);
+	RotacaoLL(praiz);
+}
+
+void RotacaoRL(No ** praiz) {
+	RotacaoLL(&(*praiz)->dir);
+	RotacaoRR(praiz);
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -13,6 +13,7 @@ void destruir(Arvore * arv);
 //Inserir/Remover
 void inserir(Arvore * arv, int key, Aluno * aluno);
 void remover(Arvore * arv, int key);
+void inserir_avl(Arvore * arv, int key, Aluno * aluno);
 
 //Buscas
 Aluno * buscar(Arvore * arv, int key);
