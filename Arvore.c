@@ -318,3 +318,37 @@ void RotacaoRL(No ** praiz) {
 	RotacaoLL(&(*praiz)->dir);
 	RotacaoRR(praiz);
 }
+
+int altura(Arvore * arv) {
+	return altura_rec(arv->raiz);
+}
+
+int altura_rec(No * raiz) {
+	if(raiz != NULL) {
+		int ae = altura_rec(raiz->esq);
+		int ad = altura_rec(raiz->dir);
+		
+		return (ae > ad ? ae : ad) + 1;
+	}
+}
+
+
+void isAvl(Arvore * arv) {
+	isAvlRec(arv->raiz);
+}
+
+int isAvlRec(No * raiz){
+	if(raiz != NULL){
+		int ae = altura_rec(raiz->esq);
+		int ad = altura_rec(raiz->dir);
+		
+		int fb = ad - ae;
+		
+		if(abs(fb) > 1) {
+			printf("No %d viola propriedade de AVL!\n");
+		}
+		
+		return (ae > ad ? ae : ad) + 1;
+	}
+}
+

@@ -22,6 +22,7 @@ Aluno * buscar(Arvore * arv, int key);
 //Utilidades
 int contar_nos(Arvore * arv);
 int maior_no(Arvore * arv);
+void isAvl(Arvore * arv);
 
 //Imprimir - In Ordem
 void imprimir(Arvore * arv);

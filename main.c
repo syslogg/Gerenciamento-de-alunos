@@ -11,7 +11,7 @@
 #define MAX_CHARACTER 300
 
 
-char filename[]  = "db/BDAlunos10e6v1.txt"; //File test
+char filename[]  = "db/BDAlunos10e1v3.txt"; //File test
 char pesquisa[] = "db/PesqAlunos10e5.txt"; //Arquivo de pesquisa
 
 struct aluno {
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
 				scanf("%d",&menu);
 				
 				
-				menu = menu >= 1 && menu <= 11 ? menu : 0;
+				menu = menu >= 1 && menu <= 15 ? menu : 0;
 				
 				break;
 			case 1:
@@ -361,7 +361,16 @@ int main(int argc, char *argv[]) {
 					
 				}
 				menu = 12;
+
+				break;
+			case 15:
+				clean();
+				printf("Teste");
+				isAvl(a);
+				printf("\nTeste 2");
 				
+				pause();
+				menu = 0;
 				break;
 		}
 	}
@@ -423,5 +432,5 @@ void clean() {
 
 void pause(){
 	printf("\n\n");
-	system("pause");
+	getch();
 }
