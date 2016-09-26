@@ -15,7 +15,7 @@ struct no {
 	
 	int fb;
 	
-	int key;
+	int unsigned key;
 	No * esq;
 	No * dir;
 };
@@ -46,7 +46,7 @@ Aluno * buscar(Arvore * arv, int key) {
 
 }
 
-/*
+
 void inserir(Arvore * arv, int key, Aluno * aluno) {
 
     if(arv->raiz == NULL) {
@@ -93,7 +93,7 @@ void inserir(Arvore * arv, int key, Aluno * aluno) {
 
 }
 
-*/
+
 
 void inordem(No * raiz) {
     if(raiz != NULL) {
@@ -189,10 +189,11 @@ void remover(Arvore * arv, int key) {
 }
 
 //Insere AVL
-void inserir(Arvore * arv, int key, Aluno * aluno){
+/*void inserir(Arvore * arv, int key, Aluno * aluno){
 	inserir_avl_rec(&(arv->raiz),key,aluno);
-}
-
+	
+}*/
+/*
 int inserir_avl_rec(No * * raiz, int key, Aluno * aluno) {
 	int res;
 	
@@ -245,7 +246,7 @@ int inserir_avl_rec(No * * raiz, int key, Aluno * aluno) {
 	}
 	atual->fb = maior(alt_No(atual->esq),alt_No(atual->dir)) +1;
 	return res;
-}
+}*/
 /*
 	else {
 			if(key > atual->key) {
@@ -318,3 +319,33 @@ void RotacaoRL(No ** praiz) {
 	RotacaoLL(&(*praiz)->dir);
 	RotacaoRR(praiz);
 }
+
+int altura_rec (No * raiz) {
+	if(raiz != NULL) {
+		
+		int altD = altura_rec(raiz->dir);
+		int altE = altura_rec(raiz->esq);
+		return (altD > altE ? altD : altE) + 1;
+	} 
+	
+}
+
+void isAvl(Arvore * arv) {
+	isAvlRec(arv->raiz);
+}
+
+int isAvlRec(No * raiz){
+	if(raiz != NULL){
+		int ae = altura_rec(raiz->esq);
+		int ad = altura_rec(raiz->dir);
+		
+		int fb = ad - ae;
+		
+		if(abs(fb) > 1) {
+			printf("No %d viola propriedade de AVL!\n");
+		}
+		
+		return (ae > ad ? ae : ad) + 1;
+	}
+}
+
