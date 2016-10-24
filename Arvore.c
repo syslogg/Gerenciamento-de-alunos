@@ -158,7 +158,7 @@ No * remove_atual(No * atual){
 	free(atual);
 	return no2;
 }
-
+/*
 void remover(Arvore * arv, int key) {
 	
 	No * raiz = arv->raiz;
@@ -186,11 +186,36 @@ void remover(Arvore * arv, int key) {
 		}
 	}
 	
-}
+}*/
 
 //Insere AVL
 void inserir(Arvore * arv, int key, Aluno * aluno){
 	inserir_avl_rec(&(arv->raiz),key,aluno);
+}
+
+void remover(Arvore * arv, int key){
+	remover_avl_rec(&(arv->raiz),key);
+}
+
+int remover_avl_rec(No * * raiz,int key) {
+	if(*raiz == NULL) {
+		printf("Valor inexistente!");
+		return 0;
+	}
+	
+	int res;
+	
+	if(key < (*raiz)->key) {
+		if((res=remover_avl_rec(&(*raiz)->esq,key))==1) {
+			if(fb_No(*raiz) >= 2) {
+				if(alt_No((*raiz)->dir->esq) <= alt_No(*raiz)->dir->dir) RotacaoRR(raiz);
+				else RotacaoRL(raiz);
+			}
+		}
+	}
+	if((*raiz)->key < valor) {
+		//if((res=remover_avl_rec(&()))//Continua aqui
+	}
 }
 
 int inserir_avl_rec(No * * raiz, int key, Aluno * aluno) {
@@ -270,6 +295,18 @@ int inserir_avl_rec(No * * raiz, int key, Aluno * aluno) {
 int alt_No(No * raiz) {
 	if(raiz == NULL) return -1;
 	else return raiz->fb;
+}
+
+No * procuraMenor(No * atual) {
+	No * no1 = atual;
+	No * no2 = atual->esq;
+	
+	while(no2 !=NULL) {
+		no1 = no2;
+		no2 = no2->esq;
+	}
+	
+	return no1;
 }
 
 int fb_No(No * raiz) {

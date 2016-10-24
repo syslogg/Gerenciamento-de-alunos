@@ -11,7 +11,7 @@
 #define MAX_CHARACTER 300
 
 
-char filename[]  = "db/BDAlunos10e6v3.txt"; //File test
+char filename[]  = "db/BDAlunos10e2v3.txt"; //File test
 char pesquisa[] = "db/PesqAlunos10e5.txt"; //Arquivo de pesquisa
 
 struct aluno {
