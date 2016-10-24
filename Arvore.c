@@ -9,8 +9,8 @@
 
 
 struct no {
-	//Informação
 	
+	//Informação
 	Aluno * info;
 	
 	int fb;
@@ -196,10 +196,21 @@ void inserir(Arvore * arv, int key, Aluno * aluno){
 void remover(Arvore * arv, int key){
 	remover_avl_rec(&(arv->raiz),key);
 }
-
+No * procuraMenor(No * atual) {
+	No * no1 = atual;
+	No * no2 = atual->esq;
+	
+	while(no2 !=NULL) {
+		no1 = no2;
+		no2 = no2->esq;
+	}
+	
+	return no1;
+}
 int remover_avl_rec(No * * raiz,int key) {
+	
 	if(*raiz == NULL) {
-		printf("Valor inexistente!");
+		//printf("Valor inexistente!");
 		return 0;
 	}
 	
@@ -208,14 +219,57 @@ int remover_avl_rec(No * * raiz,int key) {
 	if(key < (*raiz)->key) {
 		if((res=remover_avl_rec(&(*raiz)->esq,key))==1) {
 			if(fb_No(*raiz) >= 2) {
-				if(alt_No((*raiz)->dir->esq) <= alt_No(*raiz)->dir->dir) RotacaoRR(raiz);
-				else RotacaoRL(raiz);
+				if(alt_No((*raiz)->dir->esq) <= alt_No((*raiz)->dir->dir)){
+					RotacaoRR(raiz);	
+				}
+				else {
+					RotacaoRL(raiz);
+				}
 			}
 		}
 	}
-	if((*raiz)->key < valor) {
-		//if((res=remover_avl_rec(&()))//Continua aqui
+	if((*raiz)->key < key) {
+		if((res = remover_avl_rec(&(*raiz)->dir,key)) == 1) {
+			if(fb_No(*raiz) >= 2) {
+				if(alt_No((*raiz)->esq->dir) <= alt_No((*raiz)->esq->esq)) RotacaoLL(raiz);
+				else RotacaoLR(raiz);
+			}
+		}
 	}
+	
+	if((*raiz)->key == key) {
+		if((*raiz)->esq == NULL || (*raiz)->dir == NULL) {
+			//Ou ele tem 1 filho ou nenhum filho
+			No * old = (*raiz);
+			if((*raiz)->esq != NULL) {
+				*raiz = (*raiz)->esq;
+			} else {
+				*raiz = (*raiz)->dir;
+			}
+			free(old->info);
+			free(old);
+		} else {
+			//Ou ele tem 2 filhos
+			No * temp = procuraMenor((*raiz)->dir);
+			(*raiz)->key = temp->key;
+			remover_avl_rec(&(*raiz)->dir,&(*raiz)->key);
+			if(fb_No(*raiz) >= 2) {
+				if(alt_No((*raiz)->esq->dir) <= alt_No((*raiz)->esq->esq)) {
+					RotacaoLL(raiz);
+				} else {
+					RotacaoLR(raiz);
+				}
+			}
+			
+		}
+		if(*raiz !=NULL) {
+			(*raiz)->fb = maior(alt_No((*raiz)->esq),alt_No((*raiz)->dir)) + 1;
+		}
+		return 1;
+	}
+	
+	(*raiz)->fb = maior(alt_No((*raiz)->esq),alt_No((*raiz)->dir));
+	return res;
 }
 
 int inserir_avl_rec(No * * raiz, int key, Aluno * aluno) {
@@ -251,9 +305,7 @@ int inserir_avl_rec(No * * raiz, int key, Aluno * aluno) {
 		if(key > atual->key) {
 			
 			if((res=inserir_avl_rec(&(atual->dir),key,aluno)) == 1) {
-				
 				if(fb_No(atual) >= 2){
-					
 					if((*raiz)->dir->key < key) {
 						RotacaoRR(raiz);
 					} else {
@@ -261,7 +313,6 @@ int inserir_avl_rec(No * * raiz, int key, Aluno * aluno) {
 					}
 				}
 			}
-			
 		} else {
 			return 0;
 		}
@@ -297,17 +348,7 @@ int alt_No(No * raiz) {
 	else return raiz->fb;
 }
 
-No * procuraMenor(No * atual) {
-	No * no1 = atual;
-	No * no2 = atual->esq;
-	
-	while(no2 !=NULL) {
-		no1 = no2;
-		no2 = no2->esq;
-	}
-	
-	return no1;
-}
+
 
 int fb_No(No * raiz) {
 	return labs(alt_No(raiz->esq) - alt_No(raiz->dir));

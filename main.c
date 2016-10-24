@@ -11,8 +11,8 @@
 #define MAX_CHARACTER 300
 
 
-char filename[]  = "db/BDAlunos10e2v3.txt"; //File test
-char pesquisa[] = "db/PesqAlunos10e5.txt"; //Arquivo de pesquisa
+char filename[]  = "db/BDAlunos10e3v1.txt"; //File test
+char pesquisa[] = "db/PesqAlunos10e2.txt"; //Arquivo de pesquisa
 
 struct aluno {
 	char nome[MAX_CHARACTER];
@@ -164,11 +164,11 @@ int main(int argc, char *argv[]) {
 						//sscanf(linha,"%d",&matricula);
 						Aluno * b = buscar(a,matricula);
 						
-						printf("Matricula: %d\n",matricula);
+					/*	printf("Matricula: %d\n",matricula);
 						printf("Nome: %s\n",b->nome);
 						printf("E-mail: %s\n",b->email);
 						printf("Telefone: %s\n",b->telefone);
-						printf("=============================================================\n");
+						printf("=============================================================\n");*/
 					}
 					
 					printf("\n\n\nTempo decorrido: %f\n\n",(clock() - time) / (double)CLOCKS_PER_SEC);
@@ -407,7 +407,7 @@ bool CarregarArquivo (Arvore * arv) {
 		//Retira cada espaço da ultima linha
 		nome[(strlen(nome)-1)] = '\0';
 		email[(strlen(email)-1)] = '\0';
-		printf("Matricula: %d\n",matricula);
+		//printf("Matricula: %d\n",matricula);
 		//Insere na arvore
 		Aluno * aluno = (Aluno *) malloc(sizeof(Aluno));
 		strcpy(aluno->nome,nome);
