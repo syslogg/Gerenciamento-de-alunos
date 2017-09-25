@@ -11,8 +11,8 @@
 #define MAX_CHARACTER 30
 
 
-char filename[]  = "db/BDAlunos10e6v1.txt"; //File test
-char pesquisa[] = "db/PesqAlunos10e5.txt"; //Arquivo de pesquisa
+char filename[]  = "db/BDAlunos10e1v1.txt"; //File test
+char pesquisa[] = "db/PesqAlunos10e2.txt"; //Arquivo de pesquisa
 
 struct aluno {
 	char nome[MAX_CHARACTER];
@@ -93,20 +93,32 @@ int main(int argc, char *argv[]) {
 				char email[200];
 				char telefone[200];
 				Aluno * aluno = (Aluno *) malloc(sizeof(Aluno));
+				
+				aluno->nome[0] = '\0';
+				aluno->email[0] = '\0';
+				aluno->telefone[0] = '\0';
+				
 				printf("- Adicionar novo aluno:\n\n");
 				
 				fflush(stdin);
-				printf("Nome: ");
-				scanf("%[^\n]s",aluno->nome);
-				fflush(stdin);
 				
-				printf("\nE-mail: ");
-				scanf("%[^\n]s",aluno->email);
-				fflush(stdin);
+				while (strlen(aluno->nome) == 0) {
+					printf("Nome: ");
+					scanf("%[^\n]s",aluno->nome);
+					fflush(stdin);
+				}
 				
-				printf("\nTelefone: ");
-				scanf("%[^\n]s",aluno->telefone);
-				fflush(stdin);
+				while (strlen(aluno->email) == 0) {
+					printf("\nE-mail: ");
+					scanf("%[^\n]s",aluno->email);
+					fflush(stdin);
+				}
+				
+				while (strlen(aluno->telefone) == 0) {
+					printf("\nTelefone: ");
+					scanf("%[^\n]s",aluno->telefone);
+					fflush(stdin);
+				}
 				
 				
 				
@@ -163,12 +175,17 @@ int main(int argc, char *argv[]) {
 					while((fscanf(arq,"%d\n", &matricula))!=EOF) {
 						//sscanf(linha,"%d",&matricula);
 						Aluno * b = buscar(a,matricula);
+						if(b != NULL) {
+							printf("Matricula: %d\n",matricula);
+							printf("Nome: %s\n",b->nome);
+							printf("E-mail: %s\n",b->email);
+							printf("Telefone: %s\n",b->telefone);
+							printf("=============================================================\n");
+						} else {
+							printf("Matricula pesquisada não encontrada!\n");
+							printf("=============================================================\n");
+						}
 						
-						printf("Matricula: %d\n",matricula);
-						printf("Nome: %s\n",b->nome);
-						printf("E-mail: %s\n",b->email);
-						printf("Telefone: %s\n",b->telefone);
-						printf("=============================================================\n");
 					}
 					
 					printf("\n\n\nTempo decorrido: %f\n\n",(clock() - time) / (double)CLOCKS_PER_SEC);
@@ -214,17 +231,27 @@ int main(int argc, char *argv[]) {
 				if(ba != NULL) {
 					printf("==================================== Gerenciamento de alunos ====================================\n");
 					fflush(stdin);
-					printf("Novo nome:");
-					scanf("%[^\n]s",ba->nome);
-					fflush(stdin);
+					ba->nome[0] = '\0';
+					ba->email[0] = '\0';
+					ba->telefone[0] = '\0';
+					do {
+						printf("Novo nome:");
+						scanf("%[^\n]s",ba->nome);
+						fflush(stdin);
+					} while (strlen(ba->nome) == 0);
 					
-					printf("Novo e-mail:");
-					scanf("%[^\n]s",ba->email);
-					fflush(stdin);
+					do {
+						printf("Novo e-mail:");
+						scanf("%[^\n]s",ba->email);
+						fflush(stdin);
+					} while (strlen(ba->email) == 0);
 					
-					printf("Novo telefone:");
-					scanf("%[^\n]s",ba->telefone);
-					fflush(stdin);
+					
+					do {
+						printf("Novo telefone:");
+						scanf("%[^\n]s",ba->telefone);
+						fflush(stdin);
+					} while (strlen(ba->telefone) == 0);
 					
 				} else{
 					printf("Aluno de matricula %d nao existe!\n", matri);
